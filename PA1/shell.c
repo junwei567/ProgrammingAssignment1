@@ -264,15 +264,29 @@ int shellExecuteInput(char **args)
  */
 char *shellReadLine(void)
 {
-  /** TASK 1 **/
-  // read one line from stdin using getline()
+	/** TASK 1 **/
+	// read one line from stdin using getline()
+	// https://c-for-dummies.com/blog/?p=1112 
+	char *buffer;
+	size_t bufsize = 32;
+	size_t characters;
 
-  // 1. Allocate a memory space to contain the string of input from stdin using malloc. Malloc should return a char* that persists even after this function terminates.
-  // 2. Check that the char* returned by malloc is not NULL
-  // 3. Fetch an entire line from input stream stdin using getline() function. getline() will store user input onto the memory location allocated in (1)
-  // 4. Return the char*
+	// 1. Allocate a memory space to contain the string of input from stdin using malloc. Malloc should return a char* that persists even after this function terminates.
+	buffer = (char *)malloc(bufsize * sizeof(char));
 
-  return NULL;
+	// 2. Check that the char* returned by malloc is not NULL
+	if( buffer == NULL)
+	{
+		perror("Unable to allocate buffer");
+		exit(1);
+	}
+
+	// 3. Fetch an entire line from input stream stdin using getline() function. getline() will store user input onto the memory location allocated in (1)
+	characters = getline(&buffer,&bufsize,stdin);
+
+	// 4. Return the char*
+	return buffer;
+	free(buffer);
 }
 
 /**
@@ -325,7 +339,12 @@ int main(int argc, char **argv)
   printf("Shell Run successful. Running now: \n");
 
   // Run command loop
-  shellLoop();
+  // shellLoop();
+
+	// TEST:
+	char* line = shellReadLine();
+ 	printf("The fetched line is : %s \n", line);
+
 
   return 0;
 }
