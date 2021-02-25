@@ -16,6 +16,29 @@ int shellCountLine_code(char **args)
     // 7. Print out how many lines are there in this particular filename
     // 8. Return 1, to exit program
 
+    FILE *fp = fopen(args[1], "r"); 
+    if (fp != NULL) {
+        char *buffer;
+        size_t bufsize = 32;
+        size_t characters;
+        int count;
+        buffer = (char *)malloc(bufsize * sizeof(char));
+
+        if( buffer == NULL)
+        {
+            perror("Unable to allocate buffer");
+            exit(1);
+        }
+        while (getline(&buffer, &bufsize, fp) != -1) {
+            count ++;
+        }
+        fclose(fp);
+        free(buffer);
+        printf("CSEShell: There are %d lines in %s\n",count, args[1]);
+    } else {
+        printf("shellCountLine error");
+        return 1;
+    }
     return 1;
 }
 
