@@ -153,7 +153,7 @@ int shellCD(char **args)
   printf("shellCD is called! \n");
   if (args[1] == NULL)
   {
-    fprintf(stderr, "CSEShell: expected argument to \"cd\"\n");
+    fprintf(stderr, "CSEShell> expected argument to \"cd\"\n");
   }
   else
   {
@@ -161,7 +161,7 @@ int shellCD(char **args)
     // to the directory specified in path.
     if (chdir(args[1]) != 0)
     { //use chdir
-      perror("CSEShell:");
+      perror("CSEShell> ");
     }
   }
 
@@ -405,7 +405,7 @@ void shellLoop(void)
   // 6. free memory location containing the strings of characters
   // 7. free memory location containing char* to the first letter of each word in the input string
   // 8. check if shellExecuteInput returns 1. If yes, loop back to Step 1 and prompt user with new input. Otherwise, exit the shell. 
-  printf("CSEShell: ");
+  printf("CSEShell> ");
   line = shellReadLine();
   args = shellTokenizeInput(line);
   status = shellExecuteInput(args);
